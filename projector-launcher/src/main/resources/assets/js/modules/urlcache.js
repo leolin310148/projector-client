@@ -26,6 +26,7 @@
  */
 
 const datalist = document.getElementById("url-data-list");
+const urlQuickAccess = document.getElementById("url-quick-access");
 const projectorLauncherStorageKey = "projector-launcher-urls"
 const storage = window.localStorage;
 
@@ -91,6 +92,17 @@ function addDataListOption(url) {
   option.setAttribute('value', url);
   option.innerText = url;
   datalist.appendChild(option);
+
+  const li = document.createElement('li');
+  // <li className="list-group-item">An item</li>
+  li.setAttribute('class', 'list-group-item list-group-item-action');
+  li.innerText = url;
+  li.addEventListener('click', function () {
+    document.getElementById("url-text-field").value = url;
+    // trigger connect button
+    document.getElementById("connect-button").click();
+  });
+  urlQuickAccess.appendChild(li)
 }
 
 const urlCache = new LRU()
